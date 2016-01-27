@@ -22,25 +22,17 @@ $( document ).ready(function() {
     //      2. Fill the user's first and last name into `div.user-info`.
     //      (NOTE: You do not have to perform any validation on the data as
     //          a base requirement.)
-$(document).ready(function(){
       
-  $("#login").click(function(){
-      
-  $("#login, div.form-group").hide();
-     
-  $("#welcome").show();
-                        
-  $("#logout").click(function(){
+  $("#login").click(function(){     
+  $("#login, div.form-group").hide();    
+  $("#welcome").show();   
     
-  $("#welcome").hide();
-    
-  $("#login, div.form-group").show();
-    
+  $("#logout").click(function(){   
+  $("#welcome").hide();  
+  $("#login, div.form-group").show(); 
   });
 
-  });
-  
-  document.getElementById("name").innerHTML = (userInfo.firstName + " " + userInfo.lastName);
+  $("#name").text(userInfo.firstName + " " + userInfo.lastName);
   
 });
   
@@ -55,8 +47,7 @@ $(document).ready(function(){
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
   
-  $('.view-details').on('click', function(event){
-    console.log(event);
+  $('.view-details').click(function(event){
     var targetElement = event.target;
     var container = targetElement.parentElement.parentElement;
     $(container).find('.details').each(function(index, el){
@@ -90,14 +81,34 @@ $(document).ready(function(){
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
   
-  $(document).ready(function(){
-    
-    $(".vote").click(function(){
-      
-    });
-    
-  });
-    
+ 
+//create a function that will be executed when button with class vote is clicked
+$(".vote").click(function(){
+  //create conditional, if  button with class great is clicked, add one vote to great and add one vote to total
+  if($(this).attr("data-vote")==="great"){
+    ++voteCounts.great;
+    ++voteCounts.total;
+  //create conditional, if  button with class greatest is clicked, add one vote to greatest and one vote to total
+  } else if($(this).attr("data-vote")==="greatest"){
+    ++voteCounts.greatest;
+    ++voteCounts.total;
+  }
+  //create variable great percent and greatest percent which divides great and greatest votes by total, multiplies by 100 and adds %
+  var greatPercent =  (Math.round((voteCounts.great / voteCounts.total)*100)) + "%";
+  var greatestPercent =  (Math.round((voteCounts.greatest / voteCounts.total)*100)) + "%";
+ 
+  //update great and greates progress bar with the percent width based on the percent of votes calculated above.
+  $(".great-progress").width(greatPercent);
+  $(".greatest-progress").width(greatestPercent);
   
+//   document.getElementById("great-percent").innerHTML = ("Total Great: " + greatPercent);
+//   document.getElementById("greatest-percent").innerHTML = ("Total Greatest: " + greatestPercent);
+//   document.getElementById("vote-total").innerHTML = ("Total Votes: " + voteCounts.total);
+  
+  $("#great-percent").text("Total Great: " + greatPercent);
+  $("#greatest-percent").text("Total Greatest: " + greatestPercent);
+  $("#vote-total").text("Total Votes: " + voteCounts.total);
+  
+});
 
 });
