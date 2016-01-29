@@ -22,20 +22,20 @@ $( document ).ready(function() {
     //      2. Fill the user's first and last name into `div.user-info`.
     //      (NOTE: You do not have to perform any validation on the data as
     //          a base requirement.)
-      
-  $("#login").click(function(){     
-  $("#login, div.form-group").hide();    
-  $("#welcome").show();   
-    
-  $("#logout").click(function(){   
-  $("#welcome").hide();  
-  $("#login, div.form-group").show(); 
+
+  $("#login").click(function(){
+  $("#login, div.form-group").hide();
+  $("#welcome").show();
+
+  $("#logout").click(function(){
+  $("#welcome").hide();
+  $("#login, div.form-group").show();
   });
 
   $("#name").text(userInfo.firstName + " " + userInfo.lastName);
-  
+
 });
-  
+
 
     // TODO: Create a function to listen for clicks on all the "View Details"
     // buttons so that when a user clicks a "View Details" button they see
@@ -46,8 +46,8 @@ $( document ).ready(function() {
     //      3. Toggle visibility of all the elements within that parent with the class `details`.
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
-  
-  
+
+
  $(".view-details").click(function(event){
    var targetElement = event.target;
    var container = targetElement.parentElement.parentElement;
@@ -61,7 +61,7 @@ $( document ).ready(function() {
      }
    });
  });
-  
+
 
     // TODO: Create a function that listens for clicks on the voting buttons and
     // looks at the `data-vote` attribute on each button to see what was voted for,
@@ -72,8 +72,8 @@ $( document ).ready(function() {
     //      3. Increment the counter for whichever vote talley is affected.
     //      4. Determine the respective percentages (out of 100) for each progress bar.
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
-  
- 
+
+
 //create a function that will be executed when button with class vote is clicked
 $(".vote").click(function(){
   //create conditional, if  button with class great is clicked, add one vote to great and add one vote to total
@@ -85,18 +85,24 @@ $(".vote").click(function(){
     ++voteCounts.greatest;
     ++voteCounts.total;
   }
+
+  var thanks = function(){
+    alert("Thank you for your vote!");
+  }
+  setTimeout(thanks, 100);
+
   //create variable great percent and greatest percent which divides great and greatest votes by total, multiplies by 100 and adds %
   var greatPercent =  (Math.round((voteCounts.great / voteCounts.total)*100)) + "%";
   var greatestPercent =  (Math.round((voteCounts.greatest / voteCounts.total)*100)) + "%";
- 
+
   //update great and greates progress bar with the percent width based on the percent of votes calculated above.
   $(".great-progress").width(greatPercent);
   $(".greatest-progress").width(greatestPercent);
-    
   $("#great-percent").text("Total Great: " + greatPercent);
   $("#greatest-percent").text("Total Greatest: " + greatestPercent);
   $("#vote-total").text("Total Votes: " + voteCounts.total);
-  
+
+
 });
 
 });
