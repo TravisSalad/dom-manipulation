@@ -47,28 +47,20 @@ $( document ).ready(function() {
     //      4. Change the text of the "view details" button to read "hide details" so the user
     //          understands they can hide the text again.
   
-  $('.view-details').click(function(event){
-    var targetElement = event.target;
-    var container = targetElement.parentElement.parentElement;
-    $(container).find('.details').each(function(index, el){
-      
-      if($(el).is(':visible')){
-      $(el).fadeOut();
-      targetElement.innerText = "View Details"
-      
-    } else {
-      $(el).fadeIn();
-      targetElement.innerText = "Hide Details"
-    }
-    });
+  
+ $(".view-details").click(function(event){
+   var targetElement = event.target;
+   var container = targetElement.parentElement.parentElement;
+   $(container).find('.details').each(function(index, el){
+     if($(el).is(':visible')){
+       $(el).fadeOut();
+       targetElement.innerHTML = "View Details";
+     }else{
+       $(el).fadeIn();
+       targetElement.innerHTML = "Hide Details";
+     }
+   });
  });
-    
-                                    
-                        
-  
-  
-  
-  
   
 
     // TODO: Create a function that listens for clicks on the voting buttons and
@@ -100,11 +92,7 @@ $(".vote").click(function(){
   //update great and greates progress bar with the percent width based on the percent of votes calculated above.
   $(".great-progress").width(greatPercent);
   $(".greatest-progress").width(greatestPercent);
-  
-//   document.getElementById("great-percent").innerHTML = ("Total Great: " + greatPercent);
-//   document.getElementById("greatest-percent").innerHTML = ("Total Greatest: " + greatestPercent);
-//   document.getElementById("vote-total").innerHTML = ("Total Votes: " + voteCounts.total);
-  
+    
   $("#great-percent").text("Total Great: " + greatPercent);
   $("#greatest-percent").text("Total Greatest: " + greatestPercent);
   $("#vote-total").text("Total Votes: " + voteCounts.total);
