@@ -48,7 +48,7 @@ $( document ).ready(function() {
     //          understands they can hide the text again.
 
 
- $(".view-details").click(function(event){
+ $(".view-details").on('click', function(event){
    var targetElement = event.target;
    var container = targetElement.parentElement.parentElement;
    $(container).find('.details').each(function(index, el){
@@ -74,35 +74,49 @@ $( document ).ready(function() {
     //      5. Modify the `width` attribute on each progress bar to set the updated percentage.
 
 
+    var updateBars = function(voteCounts){
+      var greatBar = $('.great-progress');
+      var greatestBar = $('.greatest-progress');
+      var greatWidth = voteCounts.great / voteCounts.total;
+      var greatestWidth = voteCounts.greatest / voteCounts.total;
+
+      greatBar.css('width', greatWidth * 100 + '%');
+      greatestBar.css('width', greatestWidth * 100 + '%');
+
+      greatBar.text("Total Great: " + Math.floor(greatWidth * 100) + '%');
+      greatestBar.text("Total Greatest: " + Math.floor(greatestWidth * 100) + '%');
+      $("#vote-total").text("Total Votes: " + voteCounts.total);
+    }
+
 //create a function that will be executed when button with class vote is clicked
-$(".vote").click(function(){
+$(".vote").on('click', function(event){
   //create conditional, if  button with class great is clicked, add one vote to great and add one vote to total
-  if($(this).attr("data-vote")==="great"){
-    ++voteCounts.great;
-    ++voteCounts.total;
-  //create conditional, if  button with class greatest is clicked, add one vote to greatest and one vote to total
-  } else if($(this).attr("data-vote")==="greatest"){
-    ++voteCounts.greatest;
-    ++voteCounts.total;
+  var button = $(event.target);
+  if(button.data('vote') == 'great'){
+    voteCounts.great += 1;
+  }else if(button.data('vote') == 'greatest'){
+    voteCounts.greatest += 1;
   }
+    voteCounts.total += 1;
+    updateBars(voteCounts);
 
   var thanks = function(){
-    alert("Thank you for your vote!");
+      alert("Thank you for your vote!");
   }
   setTimeout(thanks, 100);
+});
+
+
+
 
   //create variable great percent and greatest percent which divides great and greatest votes by total, multiplies by 100 and adds %
-  var greatPercent =  (Math.round((voteCounts.great / voteCounts.total)*100)) + "%";
-  var greatestPercent =  (Math.round((voteCounts.greatest / voteCounts.total)*100)) + "%";
+  // var greatPercent =  (Math.round((voteCounts.great / voteCounts.total)*100)) + "%";
+  // var greatestPercent =  (Math.round((voteCounts.greatest / voteCounts.total)*100)) + "%";
 
-  //update great and greates progress bar with the percent width based on the percent of votes calculated above.
-  $(".great-progress").width(greatPercent);
-  $(".greatest-progress").width(greatestPercent);
-  $("#great-percent").text("Total Great: " + greatPercent);
-  $("#greatest-percent").text("Total Greatest: " + greatestPercent);
-  $("#vote-total").text("Total Votes: " + voteCounts.total);
+  //update great and greatest progress bar with the percent width based on the percent of votes calculated above.
+  // $(".great-progress").width(greatPercent);
+  // $(".greatest-progress").width(greatestPercent);
 
-
-});
+  //
 
 });
